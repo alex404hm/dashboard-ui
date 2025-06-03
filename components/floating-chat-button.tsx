@@ -17,13 +17,22 @@ export function FloatingChatButton({ onClick }: FloatingChatButtonProps) {
       window.gsap.fromTo(
         buttonRef.current,
         { scale: 0, rotate: -180 },
-        { scale: 1, rotate: 0, duration: 0.5, ease: "back.out(1.7)", delay: 1 },
+        { scale: 1, rotate: 0, duration: 0.6, ease: "elastic.out(1, 0.5)", delay: 1 },
       )
 
       // Floating animation
       window.gsap.to(buttonRef.current, {
         y: -10,
         duration: 2,
+        ease: "power2.inOut",
+        yoyo: true,
+        repeat: -1,
+      })
+
+      // Pulse animation
+      window.gsap.to(buttonRef.current, {
+        boxShadow: "0 0 20px rgba(59, 130, 246, 0.7), 0 0 30px rgba(139, 92, 246, 0.4)",
+        duration: 1.5,
         ease: "power2.inOut",
         yoyo: true,
         repeat: -1,
@@ -50,7 +59,7 @@ export function FloatingChatButton({ onClick }: FloatingChatButtonProps) {
     <Button
       ref={buttonRef}
       onClick={handleClick}
-      className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 z-40 group"
+      className="fixed bottom-6 right-6 h-14 w-14 rounded-full gradient-button shadow-lg hover:shadow-xl transition-all duration-300 z-40 group"
     >
       <div className="relative">
         <MessageCircle className="h-6 w-6 text-white group-hover:scale-110 transition-transform" />
