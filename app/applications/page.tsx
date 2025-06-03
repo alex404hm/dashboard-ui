@@ -15,8 +15,6 @@ import {
   Eye,
   Edit,
   Trash2,
-  ArrowUpDown,
-  SlidersHorizontal,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -86,30 +84,6 @@ const applications = [
     type: "Full-time",
     logo: "/placeholder.svg?height=40&width=40",
   },
-  {
-    id: "APP-006",
-    title: "DevOps Engineer",
-    company: "CloudTech",
-    status: "approved",
-    appliedDate: "2024-01-03",
-    responseDate: "2024-01-10",
-    salary: "$125k - $155k",
-    location: "Remote",
-    type: "Full-time",
-    logo: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: "APP-007",
-    title: "Marketing Manager",
-    company: "GrowthCo",
-    status: "rejected",
-    appliedDate: "2024-01-02",
-    responseDate: "2024-01-09",
-    salary: "$90k - $110k",
-    location: "Chicago, IL",
-    type: "Full-time",
-    logo: "/placeholder.svg?height=40&width=40",
-  },
 ]
 
 function getStatusBadge(status: string) {
@@ -156,34 +130,20 @@ export default function ApplicationsPage() {
 
       window.gsap.fromTo(
         cards,
-        { y: 30, opacity: 0 },
+        { y: 50, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           duration: 0.6,
           stagger: 0.1,
-          ease: "power3.out",
-        },
-      )
-
-      const tableRows = containerRef.current.querySelectorAll(".table-row")
-      window.gsap.fromTo(
-        tableRows,
-        { x: -20, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.4,
-          stagger: 0.05,
           ease: "power2.out",
-          delay: 0.3,
         },
       )
     }
   }, [])
 
   return (
-    <div className="p-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-blue-950 to-gray-950 p-6">
       <div ref={containerRef} className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 application-card">
@@ -192,14 +152,11 @@ export default function ApplicationsPage() {
             <p className="text-gray-400 mt-1">Manage and track all your job applications</p>
           </div>
           <div className="flex gap-3">
-            <Button
-              variant="outline"
-              className="border-gray-700 text-gray-300 hover:bg-gray-800/50 transition-all duration-300"
-            >
+            <Button variant="outline" className="border-gray-700 text-gray-300 hover:bg-gray-800">
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
-            <Button className="gradient-button">
+            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
               <Plus className="h-4 w-4 mr-2" />
               New Application
             </Button>
@@ -207,7 +164,7 @@ export default function ApplicationsPage() {
         </div>
 
         {/* Filters */}
-        <Card className="glass-card border-gray-700/50 application-card">
+        <Card className="glass-effect border-gray-700/50 application-card">
           <CardContent className="p-4">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="relative flex-1">
@@ -217,44 +174,27 @@ export default function ApplicationsPage() {
                   className="pl-10 bg-gray-800/50 border-gray-700/50 text-gray-100"
                 />
               </div>
-              <div className="flex gap-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="border-gray-700 text-gray-300 hover:bg-gray-800/50">
-                      <Filter className="h-4 w-4 mr-2" />
-                      Filter
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-gray-900/95 border-gray-700/50 backdrop-blur-xl">
-                    <DropdownMenuItem className="text-gray-300 hover:bg-gray-800/50 focus:bg-gray-800/50">
-                      All Status
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="text-gray-300 hover:bg-gray-800/50 focus:bg-gray-800/50">
-                      Pending
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="text-gray-300 hover:bg-gray-800/50 focus:bg-gray-800/50">
-                      Approved
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="text-gray-300 hover:bg-gray-800/50 focus:bg-gray-800/50">
-                      Rejected
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="text-gray-300 hover:bg-gray-800/50 focus:bg-gray-800/50">
-                      Interview
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
-                <Button variant="outline" className="border-gray-700 text-gray-300 hover:bg-gray-800/50">
-                  <SlidersHorizontal className="h-4 w-4 mr-2" />
-                  Sort
-                </Button>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" className="border-gray-700 text-gray-300 hover:bg-gray-800">
+                    <Filter className="h-4 w-4 mr-2" />
+                    Filter
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-gray-900 border-gray-700">
+                  <DropdownMenuItem className="text-gray-300">All Status</DropdownMenuItem>
+                  <DropdownMenuItem className="text-gray-300">Pending</DropdownMenuItem>
+                  <DropdownMenuItem className="text-gray-300">Approved</DropdownMenuItem>
+                  <DropdownMenuItem className="text-gray-300">Rejected</DropdownMenuItem>
+                  <DropdownMenuItem className="text-gray-300">Interview</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </CardContent>
         </Card>
 
         {/* Applications Table */}
-        <Card className="glass-card border-gray-700/50 application-card">
+        <Card className="glass-effect border-gray-700/50 application-card">
           <CardHeader>
             <CardTitle className="text-gray-100 flex items-center gap-2">
               <FileText className="h-5 w-5 text-blue-400" />
@@ -266,37 +206,24 @@ export default function ApplicationsPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="border-gray-800/50">
-                    <TableHead className="text-gray-300">
-                      <div className="flex items-center gap-1">
-                        Position
-                        <ArrowUpDown className="h-3 w-3" />
-                      </div>
-                    </TableHead>
+                    <TableHead className="text-gray-300">Position</TableHead>
                     <TableHead className="text-gray-300">Company</TableHead>
                     <TableHead className="text-gray-300">Status</TableHead>
                     <TableHead className="text-gray-300">Salary</TableHead>
                     <TableHead className="text-gray-300">Location</TableHead>
-                    <TableHead className="text-gray-300">
-                      <div className="flex items-center gap-1">
-                        Applied
-                        <ArrowUpDown className="h-3 w-3" />
-                      </div>
-                    </TableHead>
+                    <TableHead className="text-gray-300">Applied</TableHead>
                     <TableHead className="text-right text-gray-300">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {applications.map((app) => (
-                    <TableRow
-                      key={app.id}
-                      className="table-row border-gray-800/50 hover:bg-gray-800/30 transition-colors group"
-                    >
+                    <TableRow key={app.id} className="border-gray-800/50 hover:bg-gray-800/30 transition-colors group">
                       <TableCell>
                         <div className="flex items-center gap-3">
                           <img
                             src={app.logo || "/placeholder.svg"}
                             alt={app.company}
-                            className="w-10 h-10 rounded-lg border border-gray-700/50 group-hover:neon-border transition-all duration-300"
+                            className="w-10 h-10 rounded-lg border border-gray-700/50"
                           />
                           <div>
                             <div className="font-medium text-gray-100 group-hover:text-blue-300 transition-colors">
@@ -326,21 +253,21 @@ export default function ApplicationsPage() {
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all duration-300"
+                            className="text-gray-400 hover:text-blue-400 hover:bg-blue-500/10"
                           >
                             <Eye className="h-4 w-4" />
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="text-gray-400 hover:text-green-400 hover:bg-green-500/10 transition-all duration-300"
+                            className="text-gray-400 hover:text-green-400 hover:bg-green-500/10"
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300"
+                            className="text-gray-400 hover:text-red-400 hover:bg-red-500/10"
                           >
                             <Trash2 className="h-4 w-4" />
                           </Button>
